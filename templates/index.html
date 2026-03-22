@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row min-vh-100 align-items-center">
+    <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4">Create Professional Resumes with Ease</h1>
+        <p class="lead mb-4">Build stunning resumes in minutes with our easy-to-use resume builder. Stand out from the crowd and land your dream job!</p>
+        <div class="d-grid gap-3 d-sm-flex">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('build_resume') }}" class="btn btn-primary btn-lg px-4">
+                    <i class="fas fa-plus-circle"></i> Create New Resume
+                </a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary btn-lg px-4">
+                    <i class="fas fa-tachometer-alt"></i> My Dashboard
+                </a>
+            {% else %}
+                <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg px-4">
+                    <i class="fas fa-user-plus"></i> Get Started Free
+                </a>
+                <a href="{{ url_for('login') }}" class="btn btn-outline-secondary btn-lg px-4">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="bg-light p-5 rounded-3 shadow">
+            <h3 class="mb-4">Features</h3>
+            <ul class="list-unstyled">
+                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Professional Templates</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Easy to Use Interface</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Download as PDF</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Save Multiple Resumes</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Preview Before Download</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> 100% Free</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

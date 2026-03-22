@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Preview Resume{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0"><i class="fas fa-eye"></i> Resume Preview</h4>
+                    <div>
+                        <a href="{{ url_for('edit_resume', resume_id=resume.id) }}" class="btn btn-light btn-sm">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a href="{{ url_for('download_resume', resume_id=resume.id) }}" class="btn btn-success btn-sm">
+                            <i class="fas fa-download"></i> Download PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="resume-preview">
+                    <div class="text-center mb-4">
+                        <h1 class="display-4">{{ resume.full_name }}</h1>
+                        <p class="text-muted">
+                            {% if resume.email %}{{ resume.email }} | {% endif %}
+                            {% if resume.phone %}{{ resume.phone }} | {% endif %}
+                            {% if resume.address %}{{ resume.address }}{% endif %}
+                        </p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="mb-4">
+                        <h3 class="h4 text-primary">Professional Summary</h3>
+                        <p>{{ resume.summary }}</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h3 class="h4 text-primary">Skills</h3>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for skill in skills_list %}
+                                <span class="badge bg-secondary p-2">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h3 class="h4 text-primary">Work Experience</h3>
+                        {% for exp in experience_list %}
+                            <div class="mb-3">
+                                <p class="mb-0">{{ exp }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h3 class="h4 text-primary">Education</h3>
+                        {% for edu in education_list %}
+                            <div class="mb-3">
+                                <p class="mb-0">{{ edu }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.resume-preview {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+.resume-preview h3 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+}
+.resume-preview hr {
+    margin: 1.5rem 0;
+}
+.badge {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+</style>
+{% endblock %}

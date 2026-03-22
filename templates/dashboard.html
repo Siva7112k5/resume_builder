@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-tachometer-alt"></i> My Resumes</h2>
+    <a href="{{ url_for('build_resume') }}" class="btn btn-primary">
+        <i class="fas fa-plus-circle"></i> Create New Resume
+    </a>
+</div>
+
+{% if resumes %}
+<div class="row">
+    {% for resume in resumes %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ resume.title }}</h5>
+                <p class="card-text text-muted">
+                    <i class="fas fa-user"></i> {{ resume.full_name }}<br>
+                    <i class="fas fa-calendar-alt"></i> Updated: {{ resume.updated_at.strftime('%Y-%m-%d') }}
+                </p>
+                <div class="btn-group w-100" role="group">
+                    <a href="{{ url_for('preview_resume', resume_id=resume.id) }}" class="btn btn-sm btn-info">
+                        <i class="fas fa-eye"></i> Preview
+                    </a>
+                    <a href="{{ url_for('edit_resume', resume_id=resume.id) }}" class="btn btn-sm btn-warning">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a href="{{ url_for('download_resume', resume_id=resume.id) }}" class="btn btn-sm btn-success">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                    <a href="{{ url_for('delete_resume', resume_id=resume.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this resume?')">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="text-center py-5">
+    <i class="fas fa-file-alt fa-4x text-muted mb-3"></i>
+    <h3>No Resumes Yet</h3>
+    <p class="lead">Create your first professional resume now!</p>
+    <a href="{{ url_for('build_resume') }}" class="btn btn-primary btn-lg">
+        <i class="fas fa-plus-circle"></i> Create Resume
+    </a>
+</div>
+{% endif %}
+{% endblock %}
